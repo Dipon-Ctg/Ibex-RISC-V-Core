@@ -1,0 +1,8 @@
+# Version:1.0 MMMC View Definition File
+# Do Not Remove Above Line
+
+create_library_set -name worst -timing {/usrf01/prog/tsmc/40/cmos/lp/digital/Front_End/timing_power_noise/NLDM/tcbn40lpbwp12t40m1p_200a/tcbn40lpbwp12t40m1pwc.lib}
+create_constraint_mode -name mysdc -sdc_files {/usrf06/home/agids/stu/s_ids108/Master_Proj/ibex/ibex_WT_Scan2/do_syn/results/post_syn_ibex_core.sdc}
+create_delay_corner -name default -library_set {worst}
+create_analysis_view -name ana_wc -constraint_mode {mysdc} -delay_corner {default}
+set_analysis_view -setup {ana_wc} -hold {ana_wc} 
