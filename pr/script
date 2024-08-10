@@ -1,0 +1,201 @@
+
+########################################################################################
+################################ Initialize design #####################################
+########################################################################################
+
+set init_lef_file {/usrf01/prog/tsmc/40/cmos/lp/digital/Back_End/lef/tcbn40lpbwp12t40m1p_131a/lef/HVH_0d5_0/tcbn40lpbwp12t40m1p_10lm7X2ZRDL.lef}
+set init_pwr_net {VDD}
+set init_gnd_net {VSS}
+set m "ibex_core"
+set init_top_cell $m
+set init_verilog ../do_syn/results/netlist_$m.v
+set init_mmmc_file $m.view
+
+#########################
+###### Read Design ######
+#########################
+
+init_design
+saveDesign results/design_$m/Init/init.enc
+
+########################################################################################
+########################## Floorplan initialization  ###################################
+########################################################################################
+
+set step "Floorplan"
+set rpt_dir "./reports/design_$m/$step"
+set result_dir "./results/design_$m/$step"
+
+floorplan -d 300 275  15 15 15 15
+
+setPinConstraint -side {top bottom} -layer {M2}
+setPinConstraint -side {right left} -layer {M3}
+
+################################
+###### global connects #########
+################################
+
+globalNetConnect VDD -type pgpin -pin VDD -all
+globalNetConnect VSS -type pgpin -pin VSS -all
+globalNetConnect VDD -type tiehi
+globalNetConnect VSS -type tielo
+
+#########################################
+###### add power rings and stripes ######
+#########################################
+
+addRing -nets {VDD VSS} -follow core -layer {bottom M5 top M5 right M6 left M6} -width 4.2 -spacing 2.6 -offset 2
+addStripe -nets {VDD VSS} -layer M6 -width 0.35 -spacing 2 -set_to_set_distance 40 -xleft_offset 30 -xright_offset 30
+addStripe -nets {VDD VSS} -direction {horizontal} -layer M5 -width 0.35 -spacing 2 -set_to_set_distance 35 -ytop_offset 20 -ybottom_offset 30
+
+sroute -allowLayerChange true
+
+########################
+###### Drc checking ####
+########################
+
+verify_drc
+
+timeDesign -prePlace -outDir $rpt_dir -prefix $step
+report_timing -format {instance pin cell net load slew delay arrival} > $rpt_dir/Timing_report_Floorplan.rpt
+timeDesign -prePlace -hold -expandedViews -numPaths 10 -outDir $rpt_dir -prefix $step
+reportGateCount -stdCellOnly -outfile $rpt_dir/stdGateCount.rpt
+
+saveDesign $result_dir/$step.enc
+
+########################################################################################
+################################ Placement #############################################
+########################################################################################
+
+set step "Place" 
+set rpt_dir "./reports/design_$m/$step"
+set result_dir "./results/design_$m/$step"
+
+set_interactive_constraint_modes [all_constraint_modes -active]
+setPlaceMode -congEffort high
+setPlaceMode -placeIOPins 1
+setPlaceMode -place_global_place_io_pins true
+
+place_opt_design
+
+timeDesign -preCTS -outDir $rpt_dir -prefix $step
+timeDesign -preCTS -hold -outDir $rpt_dir -prefix $step
+report_timing > $rpt_dir/Timing_report_postPlace.rpt
+
+saveDesign $result_dir/$step.enc
+
+########################################################################################
+############################### Clock Tree Synthesis ###################################
+########################################################################################
+
+set step "cts"
+set rpt_dir "./reports/design_$m/$step"
+set result_dir "./results/design_$m/$step"
+
+set_analysis_view -setup {ana_wc} -hold {ana_wc}
+setAnalysisMode -analysisType onChipVariation -cppr both -checkType setup
+
+cleanupSpecifyClockTree
+
+add_ndr -name default_2x_space -spacing {M1 0.38 M2:M5 0.42 M6 0.84}
+
+create_route_type -name leaf_rule  -non_default_rule default_2x_space -top_preferred_layer M4 -bottom_preferred_layer M2
+create_route_type -name trunk_rule -non_default_rule default_2x_space -top_preferred_layer M4 -bottom_preferred_layer M2 -shield_net VSS -shield_side both_side
+create_route_type -name top_rule   -non_default_rule default_2x_space -top_preferred_layer M4 -bottom_preferred_layer M2 -shield_net VSS -shield_side both_side
+
+set_ccopt_property route_type -net_type leaf  leaf_rule
+set_ccopt_property route_type -net_type trunk trunk_rule
+set_ccopt_property route_type -net_type top   top_rule
+
+setDesignMode -process 40
+
+set_ccopt_property target_max_trans 0.150
+set_ccopt_property target_skew 0.150
+set_ccopt_property max_fanout 20
+set_ccopt_property update_io_latency 0
+
+#set_ccopt_effort  -high
+
+
+setOptMode   -usefulSkewCCOpt extreme
+
+#setOptMode -setupTargetSlack 0.1 -holdTargetSlack 0.15
+
+set_ccopt_property buffer_cells {BUFFD0BWP12T40M1P BUFFD12BWP12T40M1P BUFFD16BWP12T40M1P BUFFD1BWP12T40M1P BUFFD20BWP12T40M1P BUFFD24BWP12T40M1P BUFFD2BWP12T40M1P BUFFD3BWP12T40M1P BUFFD4BWP12T40M1P BUFFD6BWP12T40M1P BUFFD8BWP12T40M1P BUFFXD0BWP12T40M1P BUFFXD12BWP12T40M1P BUFFXD16BWP12T40M1P BUFFXD1BWP12T40M1P BUFFXD2BWP12T40M1P BUFFXD3BWP12T40M1P BUFFXD4BWP12T40M1P BUFFXD6BWP12T40M1P BUFFXD8BWP12T40M1P}
+
+set_ccopt_property inverter_cells {INVD0BWP12T40M1P INVD12BWP12T40M1P INVD15BWP12T40M1P INVD16BWP12T40M1P INVD18BWP12T40M1P INVD1BWP12T40M1P INVD1P25BWP12T40M1P INVD1P75BWP12T40M1P INVD20BWP12T40M1P INVD21BWP12T40M1P INVD24BWP12T40M1P INVD2BWP12T40M1P INVD2P3BWP12T40M1P INVD32BWP12T40M1P INVD3BWP12T40M1P INVD4BWP12T40M1P INVD6BWP12T40M1P INVD8BWP12T40M1P INVD9BWP12T40M1P INVOPTSAD12BWP12T40M1P INVOPTSAD16BWP12T40M1P INVOPTSAD18BWP12T40M1P INVOPTSAD20BWP12T40M1P INVOPTSAD24BWP12T40M1P INVOPTSAD6BWP12T40M1P INVOPTSAD8BWP12T40M1P}
+
+create_ccopt_clock_tree_spec -views {ana_wc} -file results/ctsSpec_dummy.tcl
+source results/ctsSpec_dummy.tcl
+
+ccopt_design
+
+timeDesign -postCTS -numPaths 10 -outDir $rpt_dir -prefix $step
+timeDesign -postCTS -hold -numPaths 10 -outDir $rpt_dir -prefix $step
+report_ccopt_clock_trees -file $rpt_dir/clock_trees.rpt
+report_ccopt_skew_groups -file $rpt_dir/skew_groups.rpt
+report_timing > $rpt_dir/Timing_report_postCCopt.rpt
+
+saveDesign $result_dir/$step.enc
+
+########################################################################################
+################################### Routing ############################################
+########################################################################################
+
+set step "Route" 
+set rpt_dir "./reports/design_$m/$step"
+set result_dir "./results/design_$m/$step"
+
+set_propagated_clock [ all_clocks ]
+
+setNanoRouteMode -routeWithSiDriven true
+setNanoRouteMode -routeInsertAntennaDiode true
+setNanoRouteMode -routeAntennaCellName "ANTENNABWP12T40M1P"
+setNanoRouteMode -routeWithTimingDriven true
+
+route_opt_design
+
+verify_drc
+
+setFillerMode -corePrefix GFILL -core "GFILL2BWP12T40M1P GFILL3BWP12T40M1P GFILL4BWP12T40M1P GFILLBWP12T40M1P"
+addFiller
+ecoroute -target
+verify_drc
+verify_connectivity -no_antenna
+
+timeDesign -postRoute -numPaths 10 -outDir $rpt_dir -prefix $step
+defOut -floorplan -placement -netlist -routing results/designs_$m/$step/$step.def.gz
+timeDesign -postRoute -hold -numPaths 10 -outDir $rpt_dir -prefix $step
+
+saveDesign $result_dir/$step.enc
+
+######################################
+##### Routing and optimization #######
+######################################
+
+set step "routeopt" 
+set rpt_dir "./reports/design_$m/$step"
+set result_dir "./results/design_$m/$step"
+
+optDesign -postRoute -setup -hold -outDir $rpt_dir -prefix optRouteSetupHold -expandedViews
+
+saveDesign $result_dir/$step.enc
+verify_drc
+verify_connectivity
+
+##########################
+###### check timing ######
+##########################
+
+timeDesign -postRoute -numPaths 10 -outDir $rpt_dir -prefix $step
+defOut -floorplan -placement -netlist -routing results/design_$m/$step/$step.def.gz
+timeDesign -postRoute -hold -numPaths 10 -outDir $rpt_dir -prefix $step
+
+##########################################
+############### Extract ##################
+##########################################
+
+write_lef_abstract ./results/dummy_ni.lef -stripePin -noCutObs -PGPinLayers {M3} -specifyTopLayer M3
+set_analysis_view -setup {ana_wc} -hold {ana_wc}
+do_extract_model results/dummy_ni.lib -view ana_wc
+
