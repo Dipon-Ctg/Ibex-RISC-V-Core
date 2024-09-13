@@ -5,6 +5,7 @@ Ibex is a production-quality open source 32-bit RISC-V CPU core written in Syste
 ![blockdiagram](https://github.com/user-attachments/assets/b4fc6578-598d-49fb-8277-c1fca3d2ca14)
 
 
-  ![ibex_core](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/ibex_core)
+    ![ibex_core](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/ibex_core)
+  
 ## Reference
 [Github](https://github.com/lowRISC/ibex?tab=readme-ov-file)
