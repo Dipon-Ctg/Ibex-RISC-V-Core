@@ -26,9 +26,17 @@ Ibex is a production-quality open source 32-bit RISC-V CPU core written in Syste
 
 ### Built With
 This solution, like others, uses an RTL to GDSII pipeline, and two Cadence tools—Genus and Innovus—are used to accomplish this whole flow. The following is a list of the actions and related equipment that require the mentioned features:
-- Synthesis(Genus)
+- Synthesis (Genus)
   - Generating gate-level netlist
   - Generating ```.sdc```
+
+- Place and Route (Innovus)
+  - Floorplan
+    - Place the macro input and output ports
+  - Placement
+    - Global placement
+  - Clock Tree Synthesis (CTS)
+    - s
 
 ## NoC implementation
 
