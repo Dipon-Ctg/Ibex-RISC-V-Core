@@ -67,7 +67,11 @@ This solution, like others, uses an RTL to GDSII pipeline, and two Cadence tools
 
 
 ### Design Import
-
+To move from logical to physical design we need to:
+ - Define the design (.v)
+ - Define design constraints (.sdc)
+ - Define operating conditions (MMMC)
+ - Define technology and libraries (.lef,.lib)
 
 ## NoC implementation
 
