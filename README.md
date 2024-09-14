@@ -27,6 +27,16 @@ Ibex is a production-quality open source 32-bit RISC-V CPU core written in Syste
 ## NoC implementation
 
 ### Synthesis
+The process
+
+**With Register File FF:**
+
+**With Register File Latch:**
+
+**Without Register Fill Latch**
+
+
+
 
 ### Place and Route
 
