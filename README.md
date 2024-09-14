@@ -53,7 +53,7 @@ This solution, like others, uses an RTL to GDSII pipeline, and two Cadence tools
 
 ### Goals
  - Create a macroblock/IP, called ```ibex_register_file_latch_RV32E0_DataWidth32_DummyInstructions0```, which later on implement for area reduction.
- - Synthesis (synthesis) of the RTL code to produce a netlist. Three steps of synthesis are used here: synthesis with Flip-Floop Register File, synthesis with Latch Register File, and synthesis without Latch module.
+ - Synthesis (syn) of the RTL code to produce a netlist. Four stages of synthesis are happenned here: Syn with Flip-Floop Register File, Syn with Latch Register File, Syn without Latch module and Syn Latch IP.
  - Backend design (Place and Route).
  - PPA analysis focus on Area(A).
 
