@@ -61,8 +61,7 @@ This solution, like others, uses an RTL to GDSII pipeline, and two Cadence tools
 
 ### Pre-requisites
 
-- RTL
- We employed Verilog code to remove constraints on IP generation time and minimize complexity through the ibex Core, which was written in SystemVerilog. With the vendor's provided method, one can directly transform the code [sv2v](https://github.com/zachjs/sv2v) . I was unable to run the sv2v utility due to an unsuitable system configuration, therefore I had to resort to the RTL code that I obtained from Openroad, another open-source tool [OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/master/flow/designs/src/ibex).
+- RTL: I employed Verilog code to remove constraints on IP generation time and minimize complexity through the ibex Core, which was written in SystemVerilog. With the vendor's provided method, one can directly transform the code [sv2v](https://github.com/zachjs/sv2v) . I was unable to run the sv2v utility due to an unsuitable system configuration, therefore I had to resort to the RTL code that I obtained from Openroad, another open-source tool [OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/master/flow/designs/src/ibex).
 
 - Technology and Libraries (.lef , .lib)
 
