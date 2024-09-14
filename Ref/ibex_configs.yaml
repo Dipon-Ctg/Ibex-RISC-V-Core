@@ -30,4 +30,6 @@ small:
   MHPMCounterNum           : 0
   MHPMCounterWidth         : 40
 
+## Other Configurations
 
+## opentitan, maxperf, maxperf-pmp-bmbalanced, maxperf-pmp, maxperf-pmp-bmfull etc.
