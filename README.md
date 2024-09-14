@@ -32,11 +32,24 @@ This solution, like others, uses an RTL to GDSII pipeline, and two Cadence tools
 
 - Place and Route (Innovus)
   - Floorplan
-    - Place the macro input and output ports
+    - Specify the floorplan
+    - Hard macro placement
+    - Power rings
+    - Pin assignment
   - Placement
-    - Global placement
+    - Standard cell placement
+    - Spare cell placement
   - Clock Tree Synthesis (CTS)
-    - s
+    - Real clock signal
+  - Route the design
+    - Global Route
+    - Detail Route (default)
+  - Filler Cell Placement and Optimization
+    - Fill the holes
+  - Verify and Tape-out
+    - DRC
+    - GDSII
+    
 
 ## NoC implementation
 
