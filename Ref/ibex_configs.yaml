@@ -1,0 +1,33 @@
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+
+# Ibex named configurations, each configuration must specify the same set of
+# parameters.
+
+# ============================
+# * SUPPORTED CONFIGURATIONS *
+# ============================
+
+# Two-stage pipeline without additional branch target ALU and 3 cycle multiplier
+# (4 cycles for mulh), resulting in 2 stall cycles for mul (3 for mulh)
+small:
+  RV32E                    : 0
+  RV32M                    : "ibex_pkg::RV32MFast"
+  RV32B                    : "ibex_pkg::RV32BNone"
+  RegFile                  : "ibex_pkg::RegFileFF"
+  BranchTargetALU          : 0
+  WritebackStage           : 0
+  ICache                   : 0
+  ICacheECC                : 0
+  ICacheScramble           : 0
+  BranchPredictor          : 0
+  DbgTriggerEn             : 0
+  SecureIbex               : 0
+  PMPEnable                : 0
+  PMPGranularity           : 0
+  PMPNumRegions            : 4
+  MHPMCounterNum           : 0
+  MHPMCounterWidth         : 40
+
+
