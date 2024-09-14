@@ -33,13 +33,13 @@ The process
 
 **With Register File Latch:**
 
-**Without Register Fill Latch**
+**Without Register Fill Latch:**
 
 
 
 
 ### Place and Route
- 
+The process
  ![ibex_core](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/ibex_core)
   
 ## Reference
