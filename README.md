@@ -72,6 +72,8 @@ To move from logical to physical design we need to:
  - Define operating conditions (MMMC)
  - Define technology and libraries (.lef,.lib)
 
+
+
 ## NoC implementation
 
 ### Synthesis
@@ -82,6 +84,8 @@ The process
 **With Register File Latch:**
 
 **Without Register Fill Latch:**
+
+**Only Latch**
 
 
 
