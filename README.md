@@ -16,7 +16,7 @@
   - [Place and Route](#place_and_route)
 - [Result and Discussions](#result_and_discussions)
 - [Acknowledgements](#acknowledgements)
-- [Reference](#referenc)
+- [Reference](#reference)
 
 
 
