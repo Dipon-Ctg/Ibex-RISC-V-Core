@@ -14,8 +14,8 @@
 - [NoC implementation](#noc_implementation)
   - [Synthesis](#synthesis)
   - [Place and Route](#place_and_route)
-- [Acknowledgements](#acknowledgements)
 - [Result and Discussions](#result_and_discussions)
+- [Acknowledgements](#acknowledgements)
 - [Reference](#referenc)
 
 
