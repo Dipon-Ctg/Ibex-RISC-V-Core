@@ -86,9 +86,9 @@ This stage involves creating a layout for the circuit components' linked forms. 
 - Placement: I utilized the standard cell and never used a spare. However, spare cells such as BUF, INV, MUX, CLKBUF, etc. might be used at this point for future usage if desired. I carry out the placement optimization procedure after the configuration is finished.
 - Clock Tree Synthesis: Timing, power, area, etc. are significantly impacted by clock nets. As a result, unlike any other net, I did not route the clock net to all sequent elements.
 Even though ```.lef``` files contain the default routing guidelines, I chose to employ Non-Default-Rules since they improved signal integrity and reduced noise and crosstalk. I doubled the width and spacing on all clock nets using metal 2, keeping in mind the spacing increase on the chip's region.
-- Routing
-- Verification
-- Tape out
+- Routing: I route the nets after clock tree synthesis and placement. I applied both Global and Detail routing throughout the routing stage. As general knowledge, during the global routing phase, the whole routing region is split up into rectangular tiles to create a routing plan tailored to a particular network. The detailed router determines the actual routing for each pre-assigned global tile, where the real wires and vias are formed. Furthermore, I optimized the routing and added filler cells to fill the holes in the rows. 
+- Verification: Even though I had previously verified whether there were any DRC violations at practically every stage, I double-checked throughout the routing. It is also possible to address the routing violation by deleting the routing of the nets with violations and re-routing them.
+- Tape out: I take a report out at each step so we can compare. I extract my design's GDSII/Stream file in this last step.
 
 ## NoC implementation
 
