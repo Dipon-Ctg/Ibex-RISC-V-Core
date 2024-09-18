@@ -82,10 +82,10 @@ I synthesized the latch register file as an IP in this section. I use NoC to imp
 
 ### Place and Route
 This stage involves creating a layout for the circuit components' linked forms. A floorplan is initially created to ascertain the position, form, and dimensions of the modules within a chip. Analyzing the chip area, latency, congestion, etc. helps determine where to put the components and prevent problems that might limit speed and performance. PnR, the central component of the ASIC design flow, is made up of many phases. The following steps are:
-- Floorplanning: I utilized an aspect ratio of 1 and 80% for the core utilization, with a core to io bordering distance of 5μm and a minimum 4.2μm restriction on my Technology LEF file. I left the pin assignment by the tool itself and allocated the power rings around the border.
+- Floorplanning: I utilized an aspect ratio of 1 and 80% for the core utilization, with a core to io bordering distance of 5μm and a minimum 4.2μm restriction on my Technology ```.lef``` file. I left the pin assignment by the tool itself and allocated the power rings around the border.
 - Placement: I utilized the standard cell and never used a spare. However, spare cells such as BUF, INV, MUX, CLKBUF, etc. might be used at this point for future usage if desired. I carry out the placement optimization procedure after the configuration is finished.
 - Clock Tree Synthesis: Timing, power, area, etc. are significantly impacted by clock nets. As a result, unlike any other net, I did not route the clock net to all sequent elements.
-Even though LEF files contain the default routing guidelines, I chose to employ Non-Default-Rules since they improved signal integrity and reduced noise and crosstalk. I doubled the width and spacing on all clock nets using metal 2, keeping in mind the spacing increase on the chip's region.
+Even though ```.lef``` files contain the default routing guidelines, I chose to employ Non-Default-Rules since they improved signal integrity and reduced noise and crosstalk. I doubled the width and spacing on all clock nets using metal 2, keeping in mind the spacing increase on the chip's region.
 - Routing
 - Verification
 - Tape out
