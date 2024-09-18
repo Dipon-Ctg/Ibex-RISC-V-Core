@@ -20,7 +20,7 @@
 
 
 ## About the project  
-Ibex is a production-quality open source 32-bit RISC-V CPU core written in SystemVerilog. The CPU core is heavily parametrizable and well suited for embedded control applications. Ibex is being extensively verified and has seen multiple tape-outs. Ibex supports the Integer (I) or Embedded (E), Integer Multiplication and Division (M), Compressed (C), and B (Bit Manipulation) extensions. For ibex, both FPGA and ASIC synthesis are supported.With the exception of the register file, which can be implemented using latches or flip-flops, the entire design is synchronous and uses positive-edge triggered flip-flops.The registers are implemented by using the flip-flop-based register file by default for ordinary, positive-edge-triggered flip-flops. When available on FPGA targets, the synchronous-write/aasynchronous-read-read-read RAM design elements are utilized in the FPGA register file. Level-sensitive latches are used in the latch-based register file to implement the registers. The latch-based register file is the preferred option for ASIC implementations since it enables significant area reductions as compared to an implementation utilizing standard flip-flops. It is possible to simulate the latch-based register file with commercial tools.To learn more about Ibex, you can click on [Github](https://github.com/lowRISC/ibex). While it supports multiple configurations, I only applied a ```small``` one. [Used config](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/ibex_configs.yaml)
+Ibex is a production-quality open-source 32-bit RISC-V CPU core written in SystemVerilog. The CPU core is heavily parametrizable and well-suited for embedded control applications. Ibex is being extensively verified and has seen multiple tape-outs. Ibex supports the Integer (I) or Embedded (E), Integer Multiplication and Division (M), Compressed (C), and B (Bit Manipulation) extensions. For ibex, both FPGA and ASIC synthesis are supported. Except for the register file, which can be implemented using latches or flip-flops, the entire design is synchronous and uses positive-edge triggered flip-flops. The registers are implemented by using the flip-flop-based register file by default for ordinary, positive-edge-triggered flip-flops. When available on FPGA targets, the synchronous-write/aasynchronous-read-read-read RAM design elements are utilized in the FPGA register file. Level-sensitive latches are used in the latch-based register file to implement the registers. The latch-based register file is the preferred option for ASIC implementations since it enables significant area reductions as compared to an implementation utilizing standard flip-flops. It is possible to simulate the latch-based register file with commercial tools. To learn more about Ibex, you can click on [Github](https://github.com/lowRISC/ibex). While it supports multiple configurations, I only applied a ```small``` one. [Used config](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/ibex_configs.yaml)
 
 
 ![blockdiagram](https://github.com/user-attachments/assets/b4fc6578-598d-49fb-8277-c1fca3d2ca14)
@@ -53,17 +53,17 @@ This solution, like others, uses an RTL to GDSII pipeline, and two Cadence tools
 
 ### Goals
  - Create a macroblock/IP, called ```ibex_register_file_latch_RV32E0_DataWidth32_DummyInstructions0```, which later on implement for area reduction.
- - Synthesis (syn) of the RTL code to produce a netlist. Four stages of synthesis are happenned here: Syn with Flip-Floop Register File, Syn with Latch Register File, Syn without Latch module and Syn Latch IP.
+ - Synthesis (syn) of the RTL code to produce a netlist. Four stages of synthesis are happened here: Syn with Flip-Floop Register File, Syn with Latch Register File, Syn without Latch module and Syn Latch IP.
  - Backend design (Place and Route).
- - PPA analysis focus on Area(A).
+ - PPA analysis focuses on Area(A).
 
 ## Getting Started
 
 ### Pre-requisites
 
-**RTL:** I employed Verilog code to remove constraints on IP generation time and minimize complexity through the ibex Core, which was written in SystemVerilog. With the vendor's provided method, one can directly transform the code [sv2v](https://github.com/zachjs/sv2v) . I was unable to run the sv2v utility due to an unsuitable system configuration, therefore I had to resort to the RTL code that I obtained from Openroad, another open-source tool [OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/master/flow/designs/src/ibex).
+**RTL:** I employed Verilog code to remove constraints on IP generation time and minimize complexity through the ibex Core, which was written in SystemVerilog. With the vendor's provided method, one can directly transform the code [sv2v](https://github.com/zachjs/sv2v). I was unable to run the sv2v utility due to an unsuitable system configuration, therefore I had to resort to the RTL code that I obtained from Openroad, another open-source tool [OpenROAD-flow-scripts](https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/tree/master/flow/designs/src/ibex).
 
-**Technology and Libraries (.lef , .lib):** The ```.lef``` file (Library Exchange Format) contains information on available metal layers, Via information, design rules and the geometry of each cell. Timinig library ```.lib``` is also known as liberty file. A typical timing library will have information of standard cells like timing, area and power. This ```.lef``` and ```.lib``` files generated by the vendors or foundries. For this project, I used tsmc technology. 
+**Technology and Libraries (.lef , .lib):** The ```.lef``` file (Library Exchange Format) contains information on available metal layers, Via information, design rules and the geometry of each cell. Timing library ```.lib``` is also known as liberty file. A typical timing library will have information of standard cells like timing, area and power. These ```.lef``` and ```.lib``` files are generated by the vendors or foundries. For this project, I used tsmc technology. 
 
 ### Design Import
 To move from logical to physical design we need to:
@@ -72,6 +72,7 @@ To move from logical to physical design we need to:
  - Define operating conditions (MMMC)
  - Define technology and libraries (.lef,.lib)
 
+![chart](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/chart2.png)
 
 
 ## NoC implementation
