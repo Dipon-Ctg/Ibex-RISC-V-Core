@@ -15,6 +15,7 @@
   - [Synthesis](#synthesis)
   - [Place and Route](#place_and_route)
 - [Acknowledgements](#acknowledgements)
+- [Result and Discussions](#result_and_discussions)
 - [Reference](#referenc)
 
 
