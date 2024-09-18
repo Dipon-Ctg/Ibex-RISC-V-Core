@@ -72,7 +72,7 @@ To move from logical to physical design we need to:
  - Define operating conditions (MMMC)
  - Define technology and libraries (.lef,.lib)
 
-  ![chart](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/chart2.png)
+ ![chart](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/chart2.png)
   
 I pick to read my design's gate-level Verilog file (Netlist) and then enter the name of the top cell or level. Furthermore. The LEF (Library Exchange Format) file, IP/Macros, and Standard cell library need to be established.  I created the timing libraries and restrictions in the Analysis Configuration section by importing an MMMC (Multi-Mode Multi-Corner) view file for various operating scenarios.
 
