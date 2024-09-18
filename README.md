@@ -78,6 +78,7 @@ I pick to read my design's gate-level Verilog file (Netlist) and then enter the 
 
 ## Macroblock/IP Generation
 ### Synthesis
+I synthesized the latch register file as an IP in this section. I use NoC to implement it later. To synthesize, I first studied the RTL codes and extracted every module and package file required for the latch register file. Next, I elaborate on the top-level design. Before developing the design, I activated clock gating to save power consumption by shutting off the registers while they were inactive. I also took care of the clock timing during the synthesis process (transition, slew, false path, etc.). At the moment of synthesis, I also disabled the scan chain option. I extracted the ```netlist``` and ```.sdc``` file following the synthesis procedure.
 
 ### Place and Route
 
