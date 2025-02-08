@@ -104,7 +104,7 @@ The next phase for the place and route is the same as previously done for IP ge
 ## Result and Discussions
 
 The process
- ![ibex_core]([https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/ibex_core](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/my_ip_Final))
+ ![ibex_core](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/my_ip_Final)
   
 ## Reference
 [Github](https://github.com/lowRISC/ibex?tab=readme-ov-file)
