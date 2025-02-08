@@ -106,7 +106,7 @@ The next phase for the place and route is the same as previously done for IP ge
 The process
  ![ibex_core](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/my_ip_Final)
   ![ibex_core](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/power_ip_final2)
-   ![ibex_core](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/multi_ip_final2)
+   ![ibex_core](https://github.com/Dipon-Ctg/Ibex-RISC-V-Core/blob/main/Ref/multi_ip_final)
   
 ## Reference
 [Github](https://github.com/lowRISC/ibex?tab=readme-ov-file)
